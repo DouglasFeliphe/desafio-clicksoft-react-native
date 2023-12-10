@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Text, Image, View } from 'react-native';
 import styled from 'styled-components/native';
 import { PostItem } from '../../components/PostItem';
-import { Container } from './styles';
 import { Header } from '../../components/Header';
+import { Container } from '../../shared/components/Container';
 
 // static data
 const postData: PostsTypes[] = [
