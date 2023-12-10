@@ -6,14 +6,20 @@ import { Button } from '../Button';
 
 interface HeaderProps {
   title?: string;
+  LeftButton?: any;
+  RightButton?: any;
 }
 
-export const Header: React.FC<HeaderProps> = ({ title }) => {
+export const Header: React.FC<HeaderProps> = ({
+  title,
+  LeftButton,
+  RightButton,
+}) => {
   return (
     <S.Header>
-      <Button iconName='search' />
+      {LeftButton ?? <Button iconName='search' />}
       <S.HeaderText>{title}</S.HeaderText>
-      <Button iconName='plus' iconPosition='RIGHT' />
+      {RightButton ?? <Button iconName='plus' iconPosition='RIGHT' />}
     </S.Header>
   );
 };
