@@ -2,16 +2,34 @@ import styled from 'styled-components/native';
 import { Color } from '../../GlobalStyles';
 
 export const PostContainer = styled.View`
-  margin-bottom: 20px;
+  margin: 5px 22px 5px 22px;
+  border-bottom-color: #ccc;
+  border-bottom-width: 1px;
+  border-radius: 15px;
+  background-color: #fff;
+
+  /* elevation: 0.5; */
 `;
 
 export const PostHeader = styled.View`
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+`;
+export const UserInfo = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
   padding: 10px;
 `;
 
-export const Avatar = styled.Image`
+export const PostOptions = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const UserAvatar = styled.Image`
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -29,7 +47,7 @@ export const PostImage = styled.Image`
 `;
 
 export const PostContent = styled.View`
-  padding: 10px;
+  margin: 2px 25px 25px 25px;
 `;
 
 export const Title = styled.Text`

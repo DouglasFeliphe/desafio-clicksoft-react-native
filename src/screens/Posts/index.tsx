@@ -3,6 +3,7 @@ import { FlatList, Text, Image, View } from 'react-native';
 import styled from 'styled-components/native';
 import { PostItem } from '../../components/PostItem';
 import { Container } from './styles';
+import { Header } from '../../components/Header';
 
 // static data
 const postData: PostsTypes[] = [
@@ -41,6 +42,7 @@ const PostsScreen: React.FC = () => {
 
   return (
     <Container>
+      <Header title='Posts' />
       <FlatList
         data={posts}
         keyExtractor={(item) => `${item.id}`}

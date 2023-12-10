@@ -1,7 +1,8 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Color } from '../../GlobalStyles';
 import * as S from './styles';
+import { Button } from '../Button';
 
 interface HeaderProps {
   title?: string;
@@ -10,13 +11,9 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
     <S.Header>
-      <S.IconContainer>
-        <Icon name='arrow-left' size={18} color={Color.colorBlueviolet} />
-      </S.IconContainer>
+      <Button iconName='search' />
       <S.HeaderText>{title}</S.HeaderText>
-      <S.IconContainer>
-        <Icon name='options' size={18} color={Color.colorBlueviolet} />
-      </S.IconContainer>
+      <Button iconName='plus' iconPosition='RIGHT' />
     </S.Header>
   );
 };

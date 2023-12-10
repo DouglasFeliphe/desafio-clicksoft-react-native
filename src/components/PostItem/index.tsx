@@ -1,5 +1,6 @@
 import React from 'react';
 import * as S from './styles';
+import { Button } from '../Button';
 
 export const PostItem: React.FC<{
   title: string;
@@ -10,12 +11,14 @@ export const PostItem: React.FC<{
   return (
     <S.PostContainer>
       <S.PostHeader>
-        <S.Avatar source={{ uri: avatar }} />
-        <S.Username>{username}</S.Username>
+        <S.UserInfo>
+          <S.UserAvatar source={{ uri: avatar }} />
+          <S.Username>{username}</S.Username>
+        </S.UserInfo>
+        <S.PostOptions>
+          <Button iconName='ellipsis-v' noBorder />
+        </S.PostOptions>
       </S.PostHeader>
-      <S.PostImage
-        source={{ uri: 'https://via.placeholder.com/600x300.png' }}
-      />
       <S.PostContent>
         <S.Title>{title}</S.Title>
         <S.Body>{body}</S.Body>

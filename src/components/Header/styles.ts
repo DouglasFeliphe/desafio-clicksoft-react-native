@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Color } from '../../GlobalStyles';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Header = styled.View`
   padding-top: 55px;
@@ -7,7 +8,7 @@ export const Header = styled.View`
   background-color: #fff;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   elevation: 3;
 `;
 
