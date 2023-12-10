@@ -1,6 +1,6 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Color } from '../../GlobalStyles';
-import { ButtonWrapper } from './styles';
+import { ButtonWrapper, ButtonText } from './styles';
 import { Text } from 'react-native';
 
 interface ButtonProps {
@@ -30,13 +30,17 @@ export const Button: React.FC<ButtonProps> = ({
       buttonBGColor={buttonBGColor}
       noBorder={noBorder}
     >
-      {buttonText && iconPosition === 'RIGHT' && <Text>{buttonText}</Text>}
+      {buttonText && iconPosition === 'RIGHT' && (
+        <ButtonText>{buttonText}</ButtonText>
+      )}
       <Icon
         name={iconName}
         size={iconSize ?? 18}
         color={iconColor ?? Color.colorBlueviolet}
       />
-      {buttonText && iconPosition === 'LEFT' && <Text>{buttonText}</Text>}
+      {buttonText && iconPosition === 'LEFT' && (
+        <ButtonText>{buttonText}</ButtonText>
+      )}
     </ButtonWrapper>
   );
 };

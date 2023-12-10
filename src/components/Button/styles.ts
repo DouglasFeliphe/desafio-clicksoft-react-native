@@ -16,3 +16,7 @@ export const ButtonWrapper = styled(TouchableOpacity)<{
   justify-content: center;
   gap: 11px;
 `;
+
+export const ButtonText = styled.Text`
+  color: ${Color.colorBlueviolet};
+`;
