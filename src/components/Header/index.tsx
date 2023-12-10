@@ -8,18 +8,21 @@ interface HeaderProps {
   title?: string;
   LeftButton?: any;
   RightButton?: any;
+  children?: React.ReactNode;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   title,
   LeftButton,
   RightButton,
+  children,
 }) => {
   return (
     <S.Header>
       {LeftButton ?? <Button iconName='search' />}
       <S.HeaderText>{title}</S.HeaderText>
       {RightButton ?? <Button iconName='plus' iconPosition='RIGHT' />}
+      {children}
     </S.Header>
   );
 };
