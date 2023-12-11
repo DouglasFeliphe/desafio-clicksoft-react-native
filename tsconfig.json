@@ -29,13 +29,13 @@
     "noEmit": true,
     "isolatedModules": true,
 
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@/screens*": ["src/screens*"],
-      "@/components*": ["src/components*"],
-      "@/shared/components*": ["src/shared/components*"],
-      "@/mock*": ["src/mock*"]
+      "@components/*": ["src/components/*"],
+      "@shared-components/*": ["src/shared/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@routes/*": ["src/routes/*"],
+      "@mock/*": ["src/mock/*"]
     }
   },
   "exclude": ["./node_modules/**/*", "e2e/**/*.ts"],
