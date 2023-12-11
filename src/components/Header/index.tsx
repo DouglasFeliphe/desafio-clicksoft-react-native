@@ -8,6 +8,8 @@ interface HeaderProps {
   title?: string;
   LeftButton?: any;
   RightButton?: any;
+  onPressLeftIcon?: () => void;
+  onPressRightIcon?: () => void;
   children?: React.ReactNode;
 }
 
@@ -15,13 +17,27 @@ export const Header: React.FC<HeaderProps> = ({
   title,
   LeftButton,
   RightButton,
+  onPressLeftIcon,
+  onPressRightIcon,
   children,
 }) => {
   return (
     <S.Header>
-      {LeftButton ?? <Button iconName='search' />}
+      {LeftButton ?? (
+        <Button
+          iconPosition='LEFT'
+          onPress={onPressLeftIcon}
+          iconName='search'
+        />
+      )}
       <S.HeaderText>{title}</S.HeaderText>
-      {RightButton ?? <Button iconName='plus' iconPosition='RIGHT' />}
+      {RightButton ?? (
+        <Button
+          onPress={onPressRightIcon}
+          iconName='plus'
+          iconPosition='RIGHT'
+        />
+      )}
       {children}
     </S.Header>
   );
