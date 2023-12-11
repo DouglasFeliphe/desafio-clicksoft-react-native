@@ -43,7 +43,7 @@ export const Username = styled.Text`
 `;
 export const UserEmail = styled.Text`
   /* font-weight: bold; */
-  color: ${Color.colorBlueviolet};
+  /* color: ${Color.colorBlueviolet}; */
 `;
 
 export const PostImage = styled.Image`
