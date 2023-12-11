@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+
 import { Color } from '../../GlobalStyles';
 
 export const PostContainer = styled.View`
@@ -38,6 +39,10 @@ export const UserAvatar = styled.Image`
 
 export const Username = styled.Text`
   font-weight: bold;
+  color: ${Color.colorBlueviolet};
+`;
+export const UserEmail = styled.Text`
+  /* font-weight: bold; */
   color: ${Color.colorBlueviolet};
 `;
 

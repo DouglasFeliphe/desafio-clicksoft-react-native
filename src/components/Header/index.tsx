@@ -1,43 +1,37 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Color } from '../../GlobalStyles';
+import { useNavigation } from '@react-navigation/native';
+import React, { ReactElement, ReactNode } from 'react';
+import { View } from 'react-native';
+
 import * as S from './styles';
-import { Button } from '../Button';
+import { Button, ButtonProps } from '../Button';
 
 interface HeaderProps {
   title?: string;
-  LeftButton?: any;
-  RightButton?: any;
+  LeftButton?: ReactElement<ButtonProps> | null;
+  RightButton?: ReactElement<ButtonProps> | null;
   onPressLeftIcon?: () => void;
   onPressRightIcon?: () => void;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   title,
-  LeftButton,
-  RightButton,
+  LeftButton = null,
+  RightButton = null,
   onPressLeftIcon,
-  onPressRightIcon,
   children,
 }) => {
+  const navigation = useNavigation();
   return (
     <S.Header>
       {LeftButton ?? (
         <Button
-          iconPosition='LEFT'
-          onPress={onPressLeftIcon}
-          iconName='search'
+          onPress={onPressLeftIcon ?? navigation.goBack}
+          iconName="chevron-left"
         />
       )}
       <S.HeaderText>{title}</S.HeaderText>
-      {RightButton ?? (
-        <Button
-          onPress={onPressRightIcon}
-          iconName='plus'
-          iconPosition='RIGHT'
-        />
-      )}
+      {RightButton ?? <View />}
       {children}
     </S.Header>
   );

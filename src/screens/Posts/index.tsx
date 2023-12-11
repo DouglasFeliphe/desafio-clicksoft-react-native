@@ -1,38 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
-import { PostItem } from '../../components/PostItem';
-import { Header } from '../../components/Header';
-import { Container } from '../../shared/components/Container';
+import { Button } from '@components/Button';
+import { Header } from '@components/Header';
+import { PostItem } from '@components/PostItem';
+import { postData } from '@mock/posts';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-// static data
-const postData: PostsTypes[] = [
-  {
-    id: 1,
-    userId: 1,
-    username: 'Bret',
-    title:
-      'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit...',
-  },
-  {
-    id: 2,
-    userId: 2,
-    username: 'Bret', // Added username here
-    title:
-      'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit...',
-  },
-  {
-    id: 3,
-    userId: 3,
-    username: 'Bret', // Added username here
-    title:
-      'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit...',
-  },
-];
+import { Container } from '@shared-components/Container';
+import React, { useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
 
 const PostsScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -43,16 +17,26 @@ const PostsScreen: React.FC = () => {
     setPosts(postData);
   }, []);
 
-  function handleSearchPost() {
-    //TODO: filter posts by value
+  // function handleSearchPost() {
+  //   //TODO: filter posts by value
+  // }
+
+  function handleUserProfilePress() {
+    navigation.navigate('UserProfile');
+  }
+
+  function handleNavigateToNewPost() {
+    navigation.navigate('NewPost');
   }
 
   return (
     <Container>
       <Header
-        title='Posts'
-        onPressLeftIcon={handleSearchPost}
-        onPressRightIcon={() => navigation.navigate('NewPost')}
+        title="Posts"
+        LeftButton={<View />}
+        RightButton={
+          <Button iconName="plus" onPress={handleNavigateToNewPost} />
+        }
       />
       <FlatList
         data={posts}
@@ -63,6 +47,7 @@ const PostsScreen: React.FC = () => {
             body={item.body}
             username={item.username}
             avatar={`https://i.pravatar.cc/100?img=${item.id}`}
+            onUserInfoPress={handleUserProfilePress}
           />
         )}
       />

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
+
 import { Color } from '../../GlobalStyles';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Header = styled.View`
   padding-top: 55px;
@@ -13,7 +13,7 @@ export const Header = styled.View`
 `;
 
 export const HeaderText = styled.Text`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 500;
   color: ${Color.colorBlueviolet};
 `;

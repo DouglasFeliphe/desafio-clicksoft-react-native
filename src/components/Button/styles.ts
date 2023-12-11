@@ -1,7 +1,7 @@
-import styled from 'styled-components/native';
-import { Color } from '../../GlobalStyles';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native';
+import styled from 'styled-components/native';
+
+import { Color } from '../../GlobalStyles';
 
 export const ButtonWrapper = styled(TouchableOpacity)<{
   buttonBGColor?: string;

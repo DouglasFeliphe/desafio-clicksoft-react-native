@@ -1,11 +1,11 @@
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Color } from '../../GlobalStyles';
-import { ButtonWrapper, ButtonText } from './styles';
-import { Text } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
-interface ButtonProps {
+import * as S from './styles';
+import { Color } from '../../GlobalStyles';
+
+export interface ButtonProps {
   onPress?: () => void;
-  buttonText?: string;
+  buttonText?: string | null;
   buttonBGColor?: string;
   noBorder?: boolean;
   iconName?: string;
@@ -14,24 +14,24 @@ interface ButtonProps {
   iconPosition?: 'LEFT' | 'RIGHT';
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
   onPress,
   buttonBGColor,
-  noBorder: noBorder,
+  noBorder,
   buttonText = null,
   iconName = '',
   iconColor,
   iconSize,
   iconPosition = 'LEFT',
-}) => {
+}: ButtonProps) => {
   return (
-    <ButtonWrapper
+    <S.ButtonWrapper
       onPress={onPress}
       buttonBGColor={buttonBGColor}
       noBorder={noBorder}
     >
       {buttonText && iconPosition === 'RIGHT' && (
-        <ButtonText>{buttonText}</ButtonText>
+        <S.ButtonText>{buttonText}</S.ButtonText>
       )}
       <Icon
         name={iconName}
@@ -39,8 +39,8 @@ export const Button: React.FC<ButtonProps> = ({
         color={iconColor ?? Color.colorBlueviolet}
       />
       {buttonText && iconPosition === 'LEFT' && (
-        <ButtonText>{buttonText}</ButtonText>
+        <S.ButtonText>{buttonText}</S.ButtonText>
       )}
-    </ButtonWrapper>
+    </S.ButtonWrapper>
   );
 };
