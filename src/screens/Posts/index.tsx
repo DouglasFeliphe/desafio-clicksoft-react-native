@@ -1,22 +1,37 @@
 import { Button } from '@components/Button';
 import { Header } from '@components/Header';
 import { PostItem } from '@components/PostItem';
-import { postData } from '@mock/posts';
+import postData from '@mock/posts.json';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Container } from '@shared-components/Container';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 
 const PostsScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
-  const [posts, setPosts] = useState<PostsTypes[]>([]);
+  type PostTypes = typeof postData;
 
+  const [posts, setPosts] = useState<PostTypes[]>([]);
   useEffect(() => {
-    setPosts(postData);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://jsonplaceholder.typicode.com/posts',
+        );
+        setPosts(response.data);
+        console.log('Posts fetched:', response.data);
+        // Handle data, update state, etc.
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        // Handle error, show error message, etc.
+      }
+    };
 
+    fetchData();
+  }, []);
   // function handleSearchPost() {
   //   //TODO: filter posts by value
   // }
