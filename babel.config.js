@@ -19,7 +19,7 @@ module.exports = function (api) {
           ],
           alias: {
             '@components': './src/components',
-            '@shared-components': './src/shared/components',
+            '@shared': './src/shared',
             '@screens': './src/screens',
             '@routes': './src/routes',
             '@mock': './src/mock',
