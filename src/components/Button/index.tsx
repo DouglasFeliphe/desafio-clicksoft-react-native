@@ -36,7 +36,7 @@ export const Button = ({
       <Icon
         name={iconName}
         size={iconSize ?? 18}
-        color={iconColor ?? palette.primary}
+        color={iconColor ?? palette.background}
       />
       {buttonText && iconPosition === 'LEFT' && (
         <S.ButtonText>{buttonText}</S.ButtonText>

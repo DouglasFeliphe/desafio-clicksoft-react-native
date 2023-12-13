@@ -1,11 +1,13 @@
 import { Button } from '@components/Button';
 import { Header } from '@components/Header';
 import { Loader } from '@components/Loader';
-import { useNavigation } from '@react-navigation/native';
-import { Container } from '@shared-components/Container';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Container } from '@shared/components/Container';
+import { useAlert } from '@shared/hooks/useAlert';
+import useLoading from '@shared/hooks/useLoading';
 import axios from 'axios';
 import React, { useState } from 'react';
-import useLoading from 'src/hooks/useLoading';
 
 import * as S from './styles';
 
@@ -16,7 +18,8 @@ interface PostData {
   userId: number;
 }
 const NewPostsScreen: React.FC<NewPostsScreenProps> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const successAlert = useAlert('Success', 'Post Created.', 'POSTS');
   const { isLoading, startLoading, stopLoading } = useLoading();
 
   const [postData, setPostData] = useState({
@@ -34,7 +37,8 @@ const NewPostsScreen: React.FC<NewPostsScreenProps> = () => {
       );
       console.log('Post created:', response.data);
       stopLoading();
-      // Handle successful post creation, update UI, etc.
+
+      successAlert();
     } catch (error) {
       console.error('Error creating post:', error);
       stopLoading();

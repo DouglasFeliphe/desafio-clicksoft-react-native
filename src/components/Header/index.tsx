@@ -1,4 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { ReactElement, ReactNode } from 'react';
 import { View } from 'react-native';
 
@@ -21,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({
   onPressLeftIcon,
   children,
 }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   return (
     <S.Header>
       {LeftButton ?? (

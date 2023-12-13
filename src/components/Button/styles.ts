@@ -8,7 +8,8 @@ export const ButtonWrapper = styled(TouchableOpacity)<{
 }>`
   background-color: ${({ buttonBGColor }) => buttonBGColor};
   padding: 8px;
-  border: ${({ noBorder }) => (noBorder ? 'none' : '1px solid #e9e9ed')};
+  border: ${({ noBorder }) =>
+    noBorder ? 'none' : `1px solid ${palette.background}`};
   border-radius: 8px;
   flex-direction: row;
   align-items: center;
@@ -17,5 +18,5 @@ export const ButtonWrapper = styled(TouchableOpacity)<{
 `;
 
 export const ButtonText = styled.Text`
-  color: ${palette.primary};
+  color: ${palette.white};
 `;
