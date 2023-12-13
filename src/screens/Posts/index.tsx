@@ -8,34 +8,31 @@ import { Container } from '@shared-components/Container';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
+import useLoading from 'src/hooks/useLoading';
 
 const PostsScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const [posts, setPosts] = useState<PostsTypes[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { isLoading, startLoading, stopLoading } = useLoading();
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPosts = async () => {
+      startLoading();
       try {
         const response = await axios.get(
           'https://jsonplaceholder.typicode.com/posts',
         );
         setPosts(response.data);
-        setLoading(false); // Set loading to false after data is fetched
+        stopLoading();
         console.log('Posts fetched:', response.data);
-        // Handle data, update state, etc.
       } catch (error) {
         console.error('Error fetching posts:', error);
-        setLoading(false); // Set loading to false in case of error
-        // Handle error, show error message, etc.
+        stopLoading();
       }
     };
 
-    fetchData();
+    fetchPosts();
   }, []);
-  // function handleSearchPost() {
-  //   //TODO: filter posts by value
-  // }
 
   function handleUserProfilePress() {
     navigation.navigate('UserProfile');
@@ -46,32 +43,35 @@ const PostsScreen: React.FC = () => {
   }
 
   return (
-    <Container>
-      <Header
-        title="Posts"
-        LeftButton={<View />}
-        RightButton={
-          <Button iconName="plus" onPress={handleNavigateToNewPost} />
-        }
-      />
-      {loading ? (
+    <>
+      {isLoading ? (
         <Loader />
       ) : (
-        <FlatList
-          data={posts}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={({ item }) => (
-            <PostItem
-              title={item.title}
-              body={item.body}
-              username={item.username}
-              avatar={`https://i.pravatar.cc/100?img=${item.id}`}
-              onUserInfoPress={handleUserProfilePress}
-            />
-          )}
-        />
+        <Container>
+          <Header
+            title="Posts"
+            LeftButton={<View />}
+            RightButton={
+              <Button iconName="plus" onPress={handleNavigateToNewPost} />
+            }
+          />
+
+          <FlatList
+            data={posts}
+            keyExtractor={(item) => `${item.id}`}
+            renderItem={({ item }) => (
+              <PostItem
+                title={item.title}
+                body={item.body}
+                username={item.username}
+                avatar={`https://i.pravatar.cc/100?img=${item.id}`}
+                onUserInfoPress={handleUserProfilePress}
+              />
+            )}
+          />
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 

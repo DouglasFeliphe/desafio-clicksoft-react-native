@@ -1,11 +1,17 @@
-import { ActivityIndicator } from 'react-native';
-import { LoaderWrapper } from './styles';
-import { Color } from 'src/GlobalStyles';
+import React from 'react';
 
-export const Loader = () => {
+import * as S from './styles';
+
+interface LoaderProps {
+  text?: string;
+}
+
+export const Loader: React.FC<LoaderProps> = ({ text }) => {
   return (
-    <LoaderWrapper>
-      <ActivityIndicator size="large" color={Color.colorBlueviolet} />
-    </LoaderWrapper>
+    <S.LoadingOverlay>
+      <S.LoaderComponent />
+      {text ?? text}
+      {/* You can add a loading message or animation inside the loader */}
+    </S.LoadingOverlay>
   );
 };
