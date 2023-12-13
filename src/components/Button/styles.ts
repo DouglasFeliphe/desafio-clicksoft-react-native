@@ -1,7 +1,6 @@
 import { TouchableOpacity } from 'react-native';
+import { palette } from 'src/shared/theme/themes';
 import styled from 'styled-components/native';
-
-import { Color } from '../../GlobalStyles';
 
 export const ButtonWrapper = styled(TouchableOpacity)<{
   buttonBGColor?: string;
@@ -18,5 +17,5 @@ export const ButtonWrapper = styled(TouchableOpacity)<{
 `;
 
 export const ButtonText = styled.Text`
-  color: ${Color.colorBlueviolet};
+  color: ${palette.primary};
 `;

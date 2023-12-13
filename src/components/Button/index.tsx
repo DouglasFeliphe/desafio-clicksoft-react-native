@@ -1,7 +1,7 @@
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { palette } from 'src/shared/theme/themes';
 
 import * as S from './styles';
-import { Color } from '../../GlobalStyles';
 
 export interface ButtonProps {
   onPress?: () => void;
@@ -36,7 +36,7 @@ export const Button = ({
       <Icon
         name={iconName}
         size={iconSize ?? 18}
-        color={iconColor ?? Color.colorBlueviolet}
+        color={iconColor ?? palette.primary}
       />
       {buttonText && iconPosition === 'LEFT' && (
         <S.ButtonText>{buttonText}</S.ButtonText>

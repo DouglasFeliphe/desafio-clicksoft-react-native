@@ -1,6 +1,5 @@
+import { palette } from 'src/shared/theme/themes';
 import styled from 'styled-components/native';
-
-import { Color } from '../../GlobalStyles';
 
 export const PostContainer = styled.View`
   margin: 5px 22px 5px 22px;
@@ -39,12 +38,9 @@ export const UserAvatar = styled.Image`
 
 export const Username = styled.Text`
   font-weight: bold;
-  color: ${Color.colorBlueviolet};
+  color: ${palette.primary};
 `;
-export const UserEmail = styled.Text`
-  /* font-weight: bold; */
-  /* color: ${Color.colorBlueviolet}; */
-`;
+export const UserEmail = styled.Text``;
 
 export const PostImage = styled.Image`
   width: 100%;
