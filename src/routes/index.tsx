@@ -45,10 +45,15 @@ const renderTabNavigation = () => {
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) =>
           renderTabIcon(route, focused, color, size),
-        tabBarActiveTintColor: palette.primary,
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: '#333',
+        tabBarInactiveTintColor: palette.primary,
         tabBarStyle: {
           backgroundColor: palette.white,
+          borderTopLeftRadius: 44,
+          borderTopRightRadius: 44,
+          height: 90,
+          paddingTop: 22,
+          paddingBottom: 22,
         },
       })}
     >
@@ -67,7 +72,7 @@ export const Routes = () => {
         // initialRouteName="Posts"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="Posts" component={renderTabNavigation} />
+        <Stack.Screen name="Home">{renderTabNavigation}</Stack.Screen>
       </Stack.Navigator>
       {/* ) : null} */}
     </NavigationContainer>
