@@ -2,7 +2,8 @@
 export const SCREENS = {
   HOME: 'Home',
   POSTS: 'Posts',
-  CREATE_OR_EDIT_POST: 'CreateOrEditPost',
+  CREATE_POST: 'CreatePost',
+  EDIT_POST: 'EditPost',
   USER_PROFILE: 'UserProfile',
   // DETAIL: 'Detail',
 };

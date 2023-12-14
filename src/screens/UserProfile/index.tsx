@@ -1,13 +1,12 @@
-import { Button } from '@components/Button';
 import { Header } from '@components/Header';
+import { Loader } from '@components/Loader';
 import { useRoute } from '@react-navigation/native';
+import useLoading from '@shared/hooks/useLoading';
 import { UsersTypes } from '@shared/types/users.tupes';
 import React, { useEffect, useState } from 'react';
 import { api } from 'src/services/api';
 
 import * as S from './styles';
-import useLoading from '@shared/hooks/useLoading';
-import { Loader } from '@components/Loader';
 
 export const UserProfileScreen: React.FC = () => {
   const route = useRoute();

@@ -4,6 +4,9 @@ export type UsersTypes = {
   username: string;
   email: string;
   address: UserAddress;
+  phone: string;
+  website: string;
+  company: UserCompany;
 };
 
 type UserAddress = {
@@ -15,4 +18,10 @@ type UserAddress = {
     lat: string;
     lng: string;
   };
+};
+
+type UserCompany = {
+  name: string;
+  catchPhrase: string;
+  bs: string;
 };

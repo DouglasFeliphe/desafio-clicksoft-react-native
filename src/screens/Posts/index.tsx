@@ -1,4 +1,3 @@
-import { Button } from '@components/Button';
 import { Header } from '@components/Header';
 import { Loader } from '@components/Loader';
 import { PostItem } from '@components/PostItem';
@@ -8,11 +7,10 @@ import { Container } from '@shared/components/Container';
 import { SCREENS } from '@shared/constants';
 import { useAlert } from '@shared/hooks/useAlert';
 import useLoading from '@shared/hooks/useLoading';
-import { palette } from '@shared/theme/themes';
 import { UsersTypes } from '@shared/types/users.tupes';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, View } from 'react-native';
+import { api } from 'src/services/api';
 
 const PostsScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -30,9 +28,7 @@ const PostsScreen: React.FC = () => {
   const fetchPosts = async () => {
     startLoading();
     try {
-      const response = await axios.get(
-        'https://jsonplaceholder.typicode.com/posts',
-      );
+      const response = await api.get('/posts');
 
       setPosts(response.data);
       stopLoading();
@@ -44,11 +40,8 @@ const PostsScreen: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(
-        'https://jsonplaceholder.typicode.com/users',
-      );
+      const response = await api.get('/users');
       setUsers(response.data);
-      console.log('Posts fetched:', response.data);
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
@@ -62,7 +55,6 @@ const PostsScreen: React.FC = () => {
       if (user) {
         const mergedPost = { ...post, username: user.username };
         mergedData.push(mergedPost);
-        console.log(' mergedPost:', mergedPost);
       }
     });
 
@@ -95,9 +87,8 @@ const PostsScreen: React.FC = () => {
   async function handleDeletePost(postId: number) {
     startLoading();
     try {
-      await axios.delete(
-        `https://jsonplaceholder.typicode.com/posts/${postId}`,
-      );
+      await api.delete(`/posts/${postId}`);
+
       setPosts(posts.filter((post) => post.id !== postId));
       console.log(`Post with ID ${postId} deleted.`);
       successAlert();
@@ -110,19 +101,14 @@ const PostsScreen: React.FC = () => {
     }
   }
 
-  function handleNavigateToCreateOrEditPost(postId?: number) {
+  function handleNavigateToEditPost(postId: number) {
     if (postId) {
-      navigation.navigate('Home', {
-        screen: SCREENS.CREATE_OR_EDIT_POST,
-        params: { postId },
-      });
+      navigation.navigate(SCREENS.EDIT_POST, { postId });
     }
-
-    navigation.navigate(SCREENS.CREATE_OR_EDIT_POST);
   }
 
-  function handleUserProfilePress() {
-    navigation.navigate('UserProfile');
+  function handleUserProfilePress(userId: number) {
+    if (userId) navigation.navigate(SCREENS.USER_PROFILE, { userId });
   }
 
   const postsWithUser = mergeUsernameWithPost(users, posts);
@@ -130,17 +116,7 @@ const PostsScreen: React.FC = () => {
   return (
     <Container>
       {isLoading && <Loader />}
-      <Header
-        title="Posts"
-        LeftButton={<View />}
-        RightButton={
-          <Button
-            iconName="plus"
-            iconColor={palette.white}
-            onPress={handleNavigateToCreateOrEditPost}
-          />
-        }
-      />
+      <Header title="Posts" LeftButton={<View />} RightButton={<View />} />
 
       <FlatList
         data={postsWithUser}
@@ -151,9 +127,9 @@ const PostsScreen: React.FC = () => {
             title={item.title}
             body={item.body}
             username={item.username ?? ''}
-            avatar={`https://i.pravatar.cc/100?img=${item.id}`}
-            onUserInfoPress={handleUserProfilePress}
-            onEditPress={() => handleNavigateToCreateOrEditPost(item.id)}
+            avatar={`https://i.pravatar.cc/100?img=${item.userId}`}
+            onUserInfoPress={() => handleUserProfilePress(item.userId)}
+            onEditPress={() => handleNavigateToEditPost(item.id)}
             onDeletePress={() => confirmDelete(item.id)}
           />
         )}
