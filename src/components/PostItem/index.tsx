@@ -1,3 +1,4 @@
+import { palette } from '@shared/theme/themes';
 import React from 'react';
 
 import * as S from './styles';
@@ -8,7 +9,9 @@ interface PostItemProps {
   body: string;
   username: string;
   avatar: string;
-  onUserInfoPress?: () => void;
+  onUserInfoPress: () => void;
+  onEditPress: () => void;
+  onDeletePress: () => void;
 }
 
 export const PostItem: React.FC<PostItemProps> = ({
@@ -17,6 +20,8 @@ export const PostItem: React.FC<PostItemProps> = ({
   username,
   avatar,
   onUserInfoPress,
+  onEditPress,
+  onDeletePress,
 }) => {
   return (
     <S.PostContainer>
@@ -26,7 +31,13 @@ export const PostItem: React.FC<PostItemProps> = ({
           <S.Username>{username}</S.Username>
         </S.UserInfo>
         <S.PostOptions>
-          <Button iconName="ellipsis-v" noBorder />
+          <Button iconName="edit" noBorder onPress={onEditPress} />
+          <Button
+            iconName="trash"
+            noBorder
+            iconColor={palette.danger}
+            onPress={onDeletePress}
+          />
         </S.PostOptions>
       </S.PostHeader>
       <S.PostContent>
