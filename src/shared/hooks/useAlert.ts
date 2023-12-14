@@ -3,9 +3,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SCREENS } from '@shared/constants';
 import { Alert } from 'react-native';
 
-type AlertTypes = 'Success';
+type AlertTypes = 'Confirmation' | 'Success' | 'Error';
 
-export type ScreenType = keyof typeof SCREENS;
+export type ScreenType = keyof typeof SCREENS | null;
 
 // Updated useAlert hook
 export const useAlert = (
@@ -15,21 +15,32 @@ export const useAlert = (
 ) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
-  const showAlert = () => {
-    Alert.alert(alertType, message, [
-      {
-        text: 'OK',
-        onPress: () => {
-          if (navigateTo) {
-            const validScreen: ScreenType = SCREENS[navigateTo] as ScreenType;
-
-            if (validScreen) {
-              navigation.navigate(validScreen);
+  const showAlert = (customMessage?: string) => {
+    Alert.alert(
+      alertType,
+      message || customMessage,
+      [
+        alertType === 'Confirmation'
+          ? {
+              text: 'Cancel',
+              style: 'cancel',
             }
-          }
+          : {},
+        {
+          text: 'OK',
+          onPress: () => {
+            if (navigateTo) {
+              const validScreen: ScreenType = SCREENS[navigateTo] as ScreenType;
+
+              if (validScreen) {
+                navigation.navigate(validScreen);
+              }
+            }
+          },
         },
-      },
-    ]);
+      ],
+      { cancelable: false },
+    );
   };
 
   return showAlert;
