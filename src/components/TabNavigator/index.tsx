@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import NewPostsScreen from '@screens/NewPost';
+import CreateOrEditPostScreen from '@screens/CreateOrEditPost';
 import PostsScreen from '@screens/Posts';
 import { UserProfileScreen } from '@screens/UserProfile';
 import Icon, { IconType } from 'react-native-dynamic-vector-icons';
@@ -19,7 +19,7 @@ const renderTabIcon = (
     case SCREENS.POSTS:
       iconName = focused ? 'home' : 'home-outline';
       break;
-    case SCREENS.NEW_POST:
+    case SCREENS.CREATE_OR_EDIT_POST:
       iconName = focused ? 'add' : 'add-outline';
       break;
     case SCREENS.USER_PROFILE:
@@ -55,7 +55,10 @@ export const TabNavigator = () => {
       })}
     >
       <Tab.Screen name={SCREENS.POSTS} component={PostsScreen} />
-      <Tab.Screen name={SCREENS.NEW_POST} component={NewPostsScreen} />
+      <Tab.Screen
+        name={SCREENS.CREATE_OR_EDIT_POST}
+        component={CreateOrEditPostScreen}
+      />
       <Tab.Screen name={SCREENS.USER_PROFILE} component={UserProfileScreen} />
     </Tab.Navigator>
   );

@@ -9,7 +9,7 @@ export const Routes = () => {
     <NavigationContainer>
       {/* {hideSplashScreen ? ( */}
       <Stack.Navigator
-        // initialRouteName="Posts"
+        initialRouteName="Home"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Home">{TabNavigator}</Stack.Screen>
