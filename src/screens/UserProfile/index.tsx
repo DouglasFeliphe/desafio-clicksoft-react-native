@@ -1,66 +1,60 @@
 import { Button } from '@components/Button';
 import { Header } from '@components/Header';
-import React from 'react';
-import styled from 'styled-components/native';
+import { useRoute } from '@react-navigation/native';
+import { UsersTypes } from '@shared/types/users.tupes';
+import React, { useEffect, useState } from 'react';
+import { api } from 'src/services/api';
 
-// Sample user data
-const userData = {
-  username: 'john_doe',
-  fullName: 'John Doe',
-  email: 'john@example.com',
-  avatar: 'https://i.pravatar.cc/100?img=1',
-
-  bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet justo ut magna tincidunt, vel tincidunt turpis gravida.',
-};
-
-const ProfileContainer = styled.View`
-  flex: 1;
-  padding: 20px;
-  align-items: center;
-`;
-
-const Avatar = styled.Image`
-  width: 150px;
-  height: 150px;
-  border-radius: 75px;
-  margin-bottom: 20px;
-`;
-
-const Username = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-
-const FullName = styled.Text`
-  font-size: 18px;
-  margin-bottom: 10px;
-`;
-
-const Email = styled.Text`
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 20px;
-`;
-
-const Bio = styled.Text`
-  font-size: 16px;
-  text-align: center;
-  margin-bottom: 20px;
-`;
+import * as S from './styles';
+import useLoading from '@shared/hooks/useLoading';
+import { Loader } from '@components/Loader';
 
 export const UserProfileScreen: React.FC = () => {
+  const route = useRoute();
+  const params = route.params;
+  const userId = params?.userId;
+  console.log('userId :', userId);
+
+  const { isLoading, startLoading, stopLoading } = useLoading();
+
+  const [userData, setUserData] = useState({} as UsersTypes);
+
+  useEffect(() => {
+    if (userId) {
+      setUserData({} as UsersTypes);
+
+      fetchUserById();
+    }
+  }, [userId]);
+
+  const fetchUserById = async () => {
+    startLoading();
+    try {
+      const response = await api.get(`/users/${userId}`);
+
+      console.log(' response.data:', response.data);
+      setUserData(response.data);
+      console.log('user by id fetched:', response.data);
+
+      stopLoading();
+    } catch (error) {
+      console.error('Error fetching user by id:', error);
+
+      stopLoading();
+    }
+  };
+
   return (
     <>
+      {isLoading && <Loader />}
       <Header title="User Profile" />
-      <ProfileContainer>
-        <Avatar source={{ uri: userData.avatar }} />
-        <Username>@{userData.username}</Username>
-        <FullName>{userData.fullName}</FullName>
-        <Email>{userData.email}</Email>
-        <Bio>{userData.bio}</Bio>
-        <Button buttonText="Submit" />
-      </ProfileContainer>
+      <S.ProfileContainer>
+        <S.Avatar source={{ uri: 'https://i.pravatar.cc/100?img=' + userId }} />
+        <S.Username>@{userData.username ?? ''}</S.Username>
+        <S.FullName>{userData.name ?? ''}</S.FullName>
+        <S.Email>{userData.email ?? ''}</S.Email>
+        <S.Bio>{userData.website ?? ''}</S.Bio>
+      </S.ProfileContainer>
     </>
   );
 };
