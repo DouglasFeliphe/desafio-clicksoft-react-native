@@ -1,7 +1,8 @@
 // ? Screens
 export const SCREENS = {
+  HOME: 'Home',
   POSTS: 'Posts',
-  NEW_POST: 'NewPost',
+  CREATE_OR_EDIT_POST: 'CreateOrEditPost',
   USER_PROFILE: 'UserProfile',
   // DETAIL: 'Detail',
 };

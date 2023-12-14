@@ -1,7 +1,11 @@
 import { Button } from '@components/Button';
 import { Header } from '@components/Header';
 import { Loader } from '@components/Loader';
-import { ParamListBase, useNavigation } from '@react-navigation/native';
+import {
+  ParamListBase,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Container } from '@shared/components/Container';
 import { useAlert } from '@shared/hooks/useAlert';
@@ -11,15 +15,21 @@ import React, { useState } from 'react';
 
 import * as S from './styles';
 
-interface NewPostsScreenProps {}
 interface PostData {
   title: string;
   body: string;
   userId: number;
 }
-const NewPostsScreen: React.FC<NewPostsScreenProps> = () => {
+const CreateOrEditPostScreen: React.FC = () => {
+  const route = useRoute();
+  console.log('route :', route);
+
+  const postId = route.params;
+  console.log('postId :', postId);
+
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const successAlert = useAlert('Success', 'Post Created.', 'POSTS');
+  const errorAlert = useAlert('Error', 'Some fields are not filled.');
   const { isLoading, startLoading, stopLoading } = useLoading();
 
   const [postData, setPostData] = useState({
@@ -28,8 +38,16 @@ const NewPostsScreen: React.FC<NewPostsScreenProps> = () => {
     userId: 1, // Replace with the desired userId
   });
 
+  //field validation
+
   const handleSubmit = async () => {
+    if (!postData.title || !postData.body) {
+      errorAlert();
+      return;
+    }
+
     startLoading();
+
     try {
       const response = await axios.post(
         'https://jsonplaceholder.typicode.com/posts',
@@ -57,7 +75,7 @@ const NewPostsScreen: React.FC<NewPostsScreenProps> = () => {
       {isLoading && <Loader />}
       <Container>
         <Header
-          title="New Post"
+          title={postId ? 'Edit Post' : 'New Post'}
           LeftButton={
             <Button
               iconName="chevron-left"
@@ -66,7 +84,11 @@ const NewPostsScreen: React.FC<NewPostsScreenProps> = () => {
             />
           }
           RightButton={
-            <Button buttonText="Create" noBorder onPress={handleSubmit} />
+            <Button
+              buttonText={postId ? 'Edit' : 'Create'}
+              noBorder
+              onPress={handleSubmit}
+            />
           }
         />
 
@@ -97,4 +119,4 @@ const NewPostsScreen: React.FC<NewPostsScreenProps> = () => {
   );
 };
 
-export default NewPostsScreen;
+export default CreateOrEditPostScreen;
