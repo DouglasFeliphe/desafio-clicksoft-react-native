@@ -33,11 +33,13 @@ export const Button = ({
       {buttonText && iconPosition === 'RIGHT' && (
         <S.ButtonText>{buttonText}</S.ButtonText>
       )}
-      <Icon
-        name={iconName}
-        size={iconSize ?? 18}
-        color={iconColor ?? palette.primary}
-      />
+      {iconName && (
+        <Icon
+          name={iconName}
+          size={iconSize ?? 18}
+          color={iconColor ?? palette.primary}
+        />
+      )}
       {buttonText && iconPosition === 'LEFT' && (
         <S.ButtonText>{buttonText}</S.ButtonText>
       )}

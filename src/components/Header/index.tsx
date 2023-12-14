@@ -5,6 +5,7 @@ import { View } from 'react-native';
 
 import * as S from './styles';
 import { Button, ButtonProps } from '../Button';
+import { palette } from '@shared/theme/themes';
 
 interface HeaderProps {
   title?: string;
@@ -29,6 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
         <Button
           onPress={onPressLeftIcon ?? navigation.goBack}
           iconName="chevron-left"
+          iconColor={palette.white}
         />
       )}
       <S.HeaderText>{title}</S.HeaderText>
